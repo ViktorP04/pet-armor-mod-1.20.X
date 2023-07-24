@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "pet-armor",
+	"version": "${version}",
+	"name": "Pet Armor",
+	"description": "Armor for your wolves",
+	"authors": [
+		"Qwertyle"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/pet-armor/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.qwertyle.pet_armor.PetArmor"
+		],
+		"client": [
+			"net.qwertyle.pet_armor.PetArmorClient"
+		],
+		"fabric-datagen": [
+			"net.qwertyle.pet_armor.PetArmorDataGenerator"
+		]
+	},
+	"mixins": [
+		"pet-armor.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.21",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
