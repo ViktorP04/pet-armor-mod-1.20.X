@@ -9,14 +9,13 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.qwertyle.pet_armor.PetArmor;
-import net.qwertyle.pet_armor.PetArmor;
 
 public class ModItems {
-    public static final Item IRON_WOLF_ARMOR = registerItem("iron_wolf_armor", new Item(new FabricItemSettings()));
+    public static final Item LEATHER_WOLF_ARMOR = registerItem("leather_wolf_armor", new Item(new FabricItemSettings()));
 
 
     private  static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
-        entries.add(IRON_WOLF_ARMOR);
+        entries.add(LEATHER_WOLF_ARMOR);
     }
 
 
