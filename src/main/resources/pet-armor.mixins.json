@@ -3,7 +3,7 @@
 	"package": "net.qwertyle.pet_armor.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+      "WolfEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
