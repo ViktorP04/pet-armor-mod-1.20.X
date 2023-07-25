@@ -8,8 +8,8 @@
 		"Qwertyle"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/ViktorP04/pet-armor-mod-1.20.X",
+		"sources": "https://github.com/ViktorP04/pet-armor-mod-1.20.X"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/pet-armor/icon.png",
