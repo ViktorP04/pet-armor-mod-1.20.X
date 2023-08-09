@@ -16,6 +16,10 @@ public class ModItemGroups {
                     .icon(() -> new ItemStack(ModItems.LEATHER_WOLF_ARMOR)).entries((displayContext, entries) -> {
 
                         entries.add(ModItems.LEATHER_WOLF_ARMOR);
+                        entries.add(ModItems.IRON_WOLF_ARMOR);
+                        entries.add(ModItems.GOLD_WOLF_ARMOR);
+                        entries.add(ModItems.DIAMOND_WOLF_ARMOR);
+                        entries.add(ModItems.NETHERITE_WOLF_ARMOR);
 
                     }).build());
 

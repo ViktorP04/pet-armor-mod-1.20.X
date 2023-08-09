@@ -9,6 +9,7 @@ import net.minecraft.client.render.entity.model.WolfEntityModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
+import net.qwertyle.pet_armor.PetArmor;
 import net.qwertyle.pet_armor.item.ModItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,7 +30,15 @@ public abstract class WolfEntityRendererMixin extends MobEntityRenderer<WolfEnti
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
     public void getTexture(WolfEntity wolfEntity, CallbackInfoReturnable<Identifier> cir) {
         if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.LEATHER_WOLF_ARMOR) {
-            cir.setReturnValue(new Identifier("textures/entity/wolf/wolf_armor.png"));
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_leather.png"));
+        } else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.IRON_WOLF_ARMOR) {
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_iron.png"));
+        } else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.GOLD_WOLF_ARMOR) {
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_gold.png"));
+        } else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.DIAMOND_WOLF_ARMOR) {
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_diamond.png"));
+        } else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.NETHERITE_WOLF_ARMOR) {
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_netherite.png"));
         }
 
     }

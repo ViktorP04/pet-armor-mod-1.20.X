@@ -12,11 +12,14 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.qwertyle.pet_armor.PetArmor;
 import net.qwertyle.pet_armor.item.ModItems;
+import net.qwertyle.pet_armor.item.PetArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,19 +43,29 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		ItemStack itemStack2 = player.getStackInHand(hand);
 		Item item2 = itemStack2.getItem();
 		if (((WolfEntity)(Object)this).isOwner(player)) {
-			if (itemStack2.isOf(ModItems.LEATHER_WOLF_ARMOR) && ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty())
+			if (item2.getName().toString().contains("wolf_armor") && ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty())
 			{
+
+				if (item2 instanceof PetArmorItem) {
+					PetArmorItem customItem = (PetArmorItem) item2;
+					int variableValue = customItem.getDefense();
+					player.sendMessage(Text.of("test: " + ((PetArmorItem)item2).getDefense()));
+				}
+
+
 				player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
 				((WolfEntity)(Object)this).equipStack(EquipmentSlot.CHEST,itemStack2);
 				//player.sendMessage(Text.of("Attached " + ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST)));
 				cir.setReturnValue(ActionResult.CONSUME);
+
+
 			} else if (itemStack2.isOf(Items.AIR)  && !((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty() && player.isSneaking())
 			{
+
 				player.giveItemStack(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST));
 				((WolfEntity)(Object)this).equipStack(EquipmentSlot.CHEST,ItemStack.EMPTY);
 				//player.sendMessage(Text.of("Removed " + ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST)));
 				cir.setReturnValue(ActionResult.CONSUME);
-
 
 			}
 
@@ -68,6 +81,14 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		if (((WolfEntity)(Object)this).isInvulnerableTo(source)) {
 			return false;
 		}
+
+
+		int defense = 0;
+		if (!((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty())
+			defense = ((PetArmorItem)((((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).getItem()))).getDefense();
+
+
+
 		Entity entity = source.getAttacker();
 		if (!((WolfEntity)(Object)this).getWorld().isClient) {
 			((WolfEntity)(Object)this).setSitting(false);
@@ -75,10 +96,10 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof PersistentProjectileEntity)) {
 			amount = (amount + 1.0f) / 2.0f;
 		}
-		if (((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.LEATHER_WOLF_ARMOR)
-		{
-			amount = amount / 2.0f;
-		}
+
+
+		amount = amount * (1F-(defense/100F));
+
 		return super.damage(source, amount);
 	}
 
@@ -88,6 +109,25 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 	)
 	public void onDeath(DamageSource damageSource, CallbackInfo ci) {
 		((WolfEntity)(Object)this).dropStack(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST));
+	}
+
+	@Override
+	public boolean isFireImmune() {
+
+		if(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isOf(ModItems.NETHERITE_WOLF_ARMOR)) {
+			return true;
+		}
+
+		return super.isFireImmune();
+	}
+
+	@Override
+	public void setOnFireFor(int seconds) {
+		if(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isOf(ModItems.NETHERITE_WOLF_ARMOR)) {
+			return;
+		}
+
+		super.setOnFireFor(seconds);
 	}
 
 
