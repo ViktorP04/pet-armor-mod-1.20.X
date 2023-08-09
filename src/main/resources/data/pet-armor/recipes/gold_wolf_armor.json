@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:leather"
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {
-    "item": "minecraft:leather_horse_armor",
+    "item": "minecraft:golden_horse_armor",
     "count": 1
   }
 }

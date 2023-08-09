@@ -11,16 +11,18 @@ import net.minecraft.util.Identifier;
 import net.qwertyle.pet_armor.PetArmor;
 
 public class ModItems {
-    public static final Item LEATHER_WOLF_ARMOR =  registerItem("leather_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(128), 28));
-    public static final Item IRON_WOLF_ARMOR =  registerItem("iron_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(128), 44));
-    public static final Item GOLD_WOLF_ARMOR =  registerItem("gold_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(128), 60));
-    public static final Item DIAMOND_WOLF_ARMOR =  registerItem("diamond_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(128), 80));
-    public static final Item NETHERITE_WOLF_ARMOR =  registerItem("netherite_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(128), 80));
+    public static final Item LEATHER_WOLF_ARMOR =  registerItem("leather_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(80), 28, "leather"));
+    public static final Item IRON_WOLF_ARMOR =  registerItem("iron_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 44,"iron_ingot"));
+    public static final Item CHAINMAIL_WOLF_ARMOR =  registerItem("chainmail_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 48,""));
+    public static final Item GOLD_WOLF_ARMOR =  registerItem("gold_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(112), 60,"gold_ingot"));
+    public static final Item DIAMOND_WOLF_ARMOR =  registerItem("diamond_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(528), 80,"diamond"));
+    public static final Item NETHERITE_WOLF_ARMOR =  registerItem("netherite_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(592).fireproof(), 80,"netherite_ingot"));
 
 
     private  static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
         entries.add(LEATHER_WOLF_ARMOR);
         entries.add(IRON_WOLF_ARMOR);
+        entries.add(CHAINMAIL_WOLF_ARMOR);
         entries.add(GOLD_WOLF_ARMOR);
         entries.add(DIAMOND_WOLF_ARMOR);
         entries.add(NETHERITE_WOLF_ARMOR);

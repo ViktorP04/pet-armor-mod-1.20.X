@@ -12,6 +12,7 @@ public class PetArmor implements ModInitializer {
 	public static final String MOD_ID = "pet-armor";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
+
 	@Override
 	public void onInitialize() {
 		ModItemGroups.registerItemGroups();

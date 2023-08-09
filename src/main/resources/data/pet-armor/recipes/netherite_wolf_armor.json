@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
+  },
+  "addition": {
+    "item": "pet-armor:diamond_wolf_armor"
+  },
+  "result": {
+    "item": "pet-armor:netherite_wolf_armor"
+  }
+}

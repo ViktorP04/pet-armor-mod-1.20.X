@@ -17,6 +17,7 @@ public class ModItemGroups {
 
                         entries.add(ModItems.LEATHER_WOLF_ARMOR);
                         entries.add(ModItems.IRON_WOLF_ARMOR);
+                        entries.add(ModItems.CHAINMAIL_WOLF_ARMOR);
                         entries.add(ModItems.GOLD_WOLF_ARMOR);
                         entries.add(ModItems.DIAMOND_WOLF_ARMOR);
                         entries.add(ModItems.NETHERITE_WOLF_ARMOR);

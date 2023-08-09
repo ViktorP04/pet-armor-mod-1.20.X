@@ -49,7 +49,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 				if (item2 instanceof PetArmorItem) {
 					PetArmorItem customItem = (PetArmorItem) item2;
 					int variableValue = customItem.getDefense();
-					player.sendMessage(Text.of("test: " + ((PetArmorItem)item2).getDefense()));
+					//player.sendMessage(Text.of("test: " + ((PetArmorItem)item2).getDefense()));
 				}
 
 
@@ -59,7 +59,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 				cir.setReturnValue(ActionResult.CONSUME);
 
 
-			} else if (itemStack2.isOf(Items.AIR)  && !((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty() && player.isSneaking())
+			} else if (itemStack2.isOf(Items.AIR) && !((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty() && player.isSneaking())
 			{
 
 				player.giveItemStack(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST));
