@@ -39,6 +39,8 @@ public abstract class WolfEntityRendererMixin extends MobEntityRenderer<WolfEnti
             cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_diamond.png"));
         } else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.NETHERITE_WOLF_ARMOR) {
             cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_netherite.png"));
+        }else if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.CHAINMAIL_WOLF_ARMOR) {
+            cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_chainmail.png"));
         }
 
     }
