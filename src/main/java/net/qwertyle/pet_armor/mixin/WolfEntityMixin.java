@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(WolfEntity.class)
+@Mixin(value = WolfEntity.class, priority = 1001)
 public abstract class WolfEntityMixin extends TameableEntity implements Angerable {
 
 	protected WolfEntityMixin(EntityType<? extends TameableEntity> entityType, World world) {
@@ -39,7 +39,6 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			cancellable = true
 	)
 	private void init(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-
 		ItemStack itemStack2 = player.getStackInHand(hand);
 		Item item2 = itemStack2.getItem();
 		if (((WolfEntity)(Object)this).isOwner(player)) {
@@ -49,7 +48,6 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 				if (item2 instanceof PetArmorItem) {
 					PetArmorItem customItem = (PetArmorItem) item2;
 					int variableValue = customItem.getDefense();
-					//player.sendMessage(Text.of("test: " + ((PetArmorItem)item2).getDefense()));
 				}
 
 
@@ -73,9 +71,43 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		}
 
 
-		// This code is injected into the start of MinecraftServer.loadWorld()V
 	}
 
+	//Could be an override but is an inject to make it compatible with Debugify
+	@Inject(
+			method = "damage",
+			at = @At("HEAD"),
+			cancellable = true
+	)
+	public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+		if (((WolfEntity)(Object)this).isInvulnerableTo(source)) {
+			cir.setReturnValue(false);
+		}
+
+
+		int defense = 0;
+		if (!((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty())
+			defense = ((PetArmorItem)((((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).getItem()))).getDefense();
+
+
+
+		Entity entity = source.getAttacker();
+		if (!((WolfEntity)(Object)this).getWorld().isClient) {
+			((WolfEntity)(Object)this).setSitting(false);
+		}
+		if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof PersistentProjectileEntity)) {
+			amount = (amount + 1.0f) / 2.0f;
+		}
+
+
+		amount = amount * (1F-(defense/100F));
+
+		cir.setReturnValue(super.damage(source, amount));
+	}
+
+
+
+/*
 	@Override
 	public boolean damage(DamageSource source, float amount) {
 		if (((WolfEntity)(Object)this).isInvulnerableTo(source)) {
@@ -101,7 +133,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		amount = amount * (1F-(defense/100F));
 
 		return super.damage(source, amount);
-	}
+	}*/
 
 	@Inject(
 			method = "onDeath",
@@ -133,7 +165,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
 
 
-	/*
+/*
 	@Inject(at = @At("HEAD"), method = "loadWorld")
 	private void init(CallbackInfo info) {
 		// This code is injected into the start of MinecraftServer.loadWorld()V
