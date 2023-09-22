@@ -11,12 +11,12 @@ import net.minecraft.util.Identifier;
 import net.qwertyle.pet_armor.PetArmor;
 
 public class ModItems {
-    public static final Item LEATHER_WOLF_ARMOR =  registerItem("leather_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(80), 28, "leather"));
-    public static final Item IRON_WOLF_ARMOR =  registerItem("iron_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 44,"iron_ingot"));
-    public static final Item CHAINMAIL_WOLF_ARMOR =  registerItem("chainmail_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 48,""));
-    public static final Item GOLD_WOLF_ARMOR =  registerItem("gold_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(112), 60,"gold_ingot"));
-    public static final Item DIAMOND_WOLF_ARMOR =  registerItem("diamond_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(528), 80,"diamond"));
-    public static final Item NETHERITE_WOLF_ARMOR =  registerItem("netherite_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(592).fireproof(), 80,"netherite_ingot"));
+    public static final Item LEATHER_WOLF_ARMOR =  registerItem("leather_wolf_armor", new DyablePetArmorItem(new FabricItemSettings().maxDamage(80), 28, "leather", "leather"));
+    public static final Item IRON_WOLF_ARMOR =  registerItem("iron_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 44,"iron_ingot", "iron"));
+    public static final Item CHAINMAIL_WOLF_ARMOR =  registerItem("chainmail_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(240), 48,"", "chainmail"));
+    public static final Item GOLD_WOLF_ARMOR =  registerItem("gold_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(112), 60,"gold_ingot", "gold"));
+    public static final Item DIAMOND_WOLF_ARMOR =  registerItem("diamond_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(528), 80,"diamond", "diamond"));
+    public static final Item NETHERITE_WOLF_ARMOR =  registerItem("netherite_wolf_armor", new PetArmorItem(new FabricItemSettings().maxDamage(592).fireproof(), 80,"netherite_ingot", "netherite"));
 
 
     private  static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {

@@ -1,7 +1,6 @@
 package net.qwertyle.pet_armor;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.qwertyle.pet_armor.item.ModItemGroups;
 import net.qwertyle.pet_armor.item.ModItems;
 import org.slf4j.Logger;
@@ -17,5 +16,6 @@ public class PetArmor implements ModInitializer {
 	public void onInitialize() {
 		ModItemGroups.registerItemGroups();
 		ModItems.RegisterModItems();
+
 	}
 }

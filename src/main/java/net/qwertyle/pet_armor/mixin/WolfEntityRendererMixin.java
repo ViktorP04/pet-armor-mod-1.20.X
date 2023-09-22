@@ -10,10 +10,12 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.util.Identifier;
 import net.qwertyle.pet_armor.PetArmor;
+import net.qwertyle.pet_armor.client.feature.WolfArmorFeatureRenderer;
 import net.qwertyle.pet_armor.item.ModItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WolfEntityRenderer.class)
@@ -23,10 +25,13 @@ public abstract class WolfEntityRendererMixin extends MobEntityRenderer<WolfEnti
     private static final Identifier ANGRY_TEXTURE = new Identifier("textures/entity/wolf/wolf_angry.png");
 
     public WolfEntityRendererMixin(EntityRendererFactory.Context context, WolfEntityModel<WolfEntity> entityModel, float f) {
+        super(context, entityModel, f);
+        /*
         super(context, new WolfEntityModel(context.getPart(EntityModelLayers.WOLF)), 0.5f);
-        this.addFeature(new WolfCollarFeatureRenderer(this));
+        this.addFeature(new WolfCollarFeatureRenderer(this));*/
     }
 
+    /*
     @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
     public void getTexture(WolfEntity wolfEntity, CallbackInfoReturnable<Identifier> cir) {
         if (wolfEntity.getEquippedStack(EquipmentSlot.CHEST).getItem() == ModItems.LEATHER_WOLF_ARMOR) {
@@ -43,5 +48,11 @@ public abstract class WolfEntityRendererMixin extends MobEntityRenderer<WolfEnti
             cir.setReturnValue(new Identifier(PetArmor.MOD_ID,"textures/entity/wolf/wolf_armor_chainmail.png"));
         }
 
+    }*/
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void addWolfArmorFeature(EntityRendererFactory.Context context, CallbackInfo ci) {
+        this.addFeature(new WolfArmorFeatureRenderer(this, context.getModelLoader()));
     }
+
 }
