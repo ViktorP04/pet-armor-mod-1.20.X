@@ -2,7 +2,9 @@ package net.qwertyle.pet_armor.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentTarget;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.WolfEntity;
@@ -12,21 +14,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class PetArmorItem extends Item {
 
     private final int defense;
-    private final String type;
     private final String material;
+    private final int enchantability;
     private final Identifier texture;
-    public PetArmorItem (Settings settings, int defense, String material, String type) {
+    public PetArmorItem (Settings settings, int defense, String material, int enchantability, String entityTexturePath) {
         super(settings);
         this.defense = defense;
         this.material = material;
-        this.type = type;
-        this.texture = new Identifier("pet-armor","textures/entity/wolf/wolf_armor_" + type + ".png");
+        this.enchantability = enchantability;
+        this.texture = new Identifier("pet-armor","textures/entity/wolf/" + entityTexturePath + ".png");
     }
 
 
@@ -76,26 +83,9 @@ public class PetArmorItem extends Item {
 
     @Override
     public int getEnchantability() {
-        return 15;
+        return enchantability;
     }
 
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        Enchantment[] enchantments = {
-                Enchantments.SHARPNESS,
-                Enchantments.LOOTING,
-                Enchantments.FIRE_ASPECT,
-                Enchantments.UNBREAKING,
-                Enchantments.KNOCKBACK,
-                Enchantments.MENDING,
-        };
-        for(int i=0;i<enchantments.length;i++){
-            if(enchantments[i] == enchantment){
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
@@ -104,7 +94,11 @@ public class PetArmorItem extends Item {
         return false;
     }
 
-
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("tooltip.pet-armor.petarmortooltip").formatted(Formatting.GRAY));
+        super.appendTooltip(stack, world, tooltip, context);
+    }
 
     public int getDefense ()
     {

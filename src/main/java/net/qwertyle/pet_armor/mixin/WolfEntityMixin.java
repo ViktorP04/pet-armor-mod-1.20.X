@@ -1,8 +1,13 @@
 package net.qwertyle.pet_armor.mixin;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.enchantment.ThornsEnchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.passive.TameableEntity;
@@ -16,18 +21,26 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.qwertyle.pet_armor.PetArmor;
 import net.qwertyle.pet_armor.item.ModItems;
 import net.qwertyle.pet_armor.item.PetArmorItem;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.UUID;
+
 @Mixin(value = WolfEntity.class, priority = 1001)
 public abstract class WolfEntityMixin extends TameableEntity implements Angerable {
+
+	@Shadow private @Nullable UUID angryAt;
 
 	protected WolfEntityMixin(EntityType<? extends TameableEntity> entityType, World world) {
 		super(entityType, world);
@@ -39,6 +52,9 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			cancellable = true
 	)
 	private void init(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+
+
+
 		ItemStack itemStack2 = player.getStackInHand(hand);
 		Item item2 = itemStack2.getItem();
 		if (((WolfEntity)(Object)this).isOwner(player)) {
@@ -73,22 +89,20 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 
 	}
 
-	//Could be an override but is an inject to make it compatible with Debugify
+	//Could be an override but is an inject to make it compatible with Debugify and other mods that override tihs function
 	@Inject(
 			method = "damage",
 			at = @At("HEAD"),
 			cancellable = true
 	)
 	public void damage(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+
+		float originalDamageAmount = amount;
+
+
 		if (((WolfEntity)(Object)this).isInvulnerableTo(source)) {
 			cir.setReturnValue(false);
 		}
-
-
-		int defense = 0;
-		if (!((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty())
-			defense = ((PetArmorItem)((((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).getItem()))).getDefense();
-
 
 
 		Entity entity = source.getAttacker();
@@ -99,12 +113,65 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			amount = (amount + 1.0f) / 2.0f;
 		}
 
+		if (!((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).isEmpty() && ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof PetArmorItem)
+		{
+			ItemStack armorStack = ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST);
 
-		amount = amount * (1F-(defense/100F));
+			int defense = 0;
+			if (!armorStack.isEmpty())
+			{
+				defense = ((PetArmorItem)armorStack.getItem()).getDefense();
+			}
+
+
+
+			//Protection
+			//int protectionLevel = EnchantmentHelper.getLevel(Enchantments.PROTECTION, ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST));
+			//amount -= amount * (0.04F * protectionLevel);
+
+			//Thorns
+			int thornsLevel = EnchantmentHelper.getLevel(Enchantments.THORNS, armorStack);
+			if (thornsLevel > 0)
+			{
+				Random random = getRandom();
+
+				if (ThornsEnchantment.shouldDamageAttacker(thornsLevel, random)) {
+					if (source.getAttacker() != null) {
+						//MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Thorns!"));
+
+						//source.getAttacker().damage(this.getDamageSources().mobAttack(this), 5);
+						//source.getAttacker().damage(this.getDamageSources().thorns(this), 5); //ThornsEnchantment.getDamageAmount(thornsLevel, random)
+
+						source.getAttacker().damage(this.getDamageSources().generic(), ThornsEnchantment.getDamageAmount(thornsLevel, random));
+						//source.getAttacker().setOnFireFor(50);
+					}
+				}
+
+			}
+
+			amount = amount * (1F-(defense/100F));
+
+			//Durability damage
+			if (armorStack.getItem() instanceof PetArmorItem)
+			{
+				armorStack.damage(Math.round(amount/4), this, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
+
+			}
+		}
+
+
 
 		cir.setReturnValue(super.damage(source, amount));
 	}
 
+
+	@Override
+	protected float getVelocityMultiplier() {
+		if (this.isOnSoulSpeedBlock() && EnchantmentHelper.getLevel(Enchantments.SOUL_SPEED, ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST)) > 0) {
+			return 1.0f;
+		}
+		return super.getVelocityMultiplier();
+	}
 
 
 /*
@@ -140,7 +207,11 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			at = @At("HEAD")
 	)
 	public void onDeath(DamageSource damageSource, CallbackInfo ci) {
-		((WolfEntity)(Object)this).dropStack(((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST));
+		ItemStack armor = ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST).copyAndEmpty();
+		//MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("C: " + armor.getCount() + ", D: " + armor.getDamage()));
+		//System.out.println("Error, duplicate PetArmorItem death drop!");
+
+		((WolfEntity)(Object)this).dropStack(armor);
 	}
 
 	@Override
@@ -160,6 +231,24 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 		}
 
 		super.setOnFireFor(seconds);
+	}
+
+	@Override
+	public boolean tryAttack(Entity target) {
+
+		ItemStack armor = ((WolfEntity)(Object)this).getEquippedStack(EquipmentSlot.CHEST);
+		boolean hasMending = EnchantmentHelper.getLevel(Enchantments.MENDING, armor) > 0;
+
+		boolean bl = target.damage(this.getDamageSources().mobAttack(this), (int)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE));
+		if (bl) {
+			this.applyDamageEffects(this, target);
+			if (hasMending)
+				armor.setDamage(armor.getDamage() - 3);
+
+
+
+		}
+		return bl;
 	}
 
 

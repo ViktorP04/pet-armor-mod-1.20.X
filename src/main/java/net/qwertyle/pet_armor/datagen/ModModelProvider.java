@@ -23,7 +23,7 @@ public class ModModelProvider  extends FabricModelProvider {
         itemModelGenerator.register(ModItems.LEATHER_WOLF_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.IRON_WOLF_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.CHAINMAIL_WOLF_ARMOR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLD_WOLF_ARMOR, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLDEN_WOLF_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.DIAMOND_WOLF_ARMOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.NETHERITE_WOLF_ARMOR, Models.GENERATED);
     }

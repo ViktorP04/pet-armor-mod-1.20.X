@@ -55,8 +55,9 @@ public class WolfArmorFeatureRenderer extends FeatureRenderer<WolfEntity, WolfEn
                 g = 1F;
                 b = 1F;
             }
+            boolean isEnchanted = itemStack.hasEnchantments();
 
-            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(armorItem.GetEntityTexture()), false, false);
+            VertexConsumer vertexConsumer = ItemRenderer.getArmorGlintConsumer(vertexConsumers, RenderLayer.getArmorCutoutNoCull(armorItem.GetEntityTexture()), false, isEnchanted);
             this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, r, g, b, 1F);
         }
 

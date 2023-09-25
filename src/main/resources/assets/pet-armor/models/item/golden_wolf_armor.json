@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "pet-armor:item/gold_wolf_armor"
+    "layer0": "pet-armor:item/golden_wolf_armor"
   }
 }

@@ -5,7 +5,8 @@
 	"mixins": [
 		"WolfEntityMixin",
 		"WolfEntityRendererMixin",
-		"EnchantmentMixin"
+		"EnchantmentMixin",
+		"EnchantmentHelperMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

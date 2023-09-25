@@ -6,7 +6,7 @@ import net.minecraft.item.DyeableItem;
 public class DyablePetArmorItem extends PetArmorItem implements DyeableItem {
 
 
-    public DyablePetArmorItem(Settings settings, int defense, String material, String type) {
-        super(settings, defense, material, type);
+    public DyablePetArmorItem(Settings settings, int defense, String material, int enchantability, String entityTexturePath) {
+        super(settings, defense, material, enchantability, entityTexturePath);
     }
 }
