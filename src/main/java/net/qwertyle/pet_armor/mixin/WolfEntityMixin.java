@@ -142,7 +142,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 					if (source.getAttacker() != null) {
 						//MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Thorns!"));
 
-						source.getAttacker().damage(this.getDamageSources().mobAttack(this), 5);
+						//source.getAttacker().damage(this.getDamageSources().mobAttack(this), 5);
 						//source.getAttacker().damage(this.getDamageSources().thorns(this), 5); //ThornsEnchantment.getDamageAmount(thornsLevel, random)
 
 						source.getAttacker().damage(this.getDamageSources().generic(), ThornsEnchantment.getDamageAmount(thornsLevel, random));
