@@ -9,6 +9,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageSources;
+import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.Angerable;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.WolfEntity;
@@ -139,7 +142,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 					if (source.getAttacker() != null) {
 						//MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of("Thorns!"));
 
-						//source.getAttacker().damage(this.getDamageSources().mobAttack(this), 5);
+						source.getAttacker().damage(this.getDamageSources().mobAttack(this), 5);
 						//source.getAttacker().damage(this.getDamageSources().thorns(this), 5); //ThornsEnchantment.getDamageAmount(thornsLevel, random)
 
 						source.getAttacker().damage(this.getDamageSources().generic(), ThornsEnchantment.getDamageAmount(thornsLevel, random));
@@ -152,9 +155,9 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			amount = amount * (1F-(defense/100F));
 
 			//Durability damage
-			if (armorStack.getItem() instanceof PetArmorItem)
+			if (armorStack.getItem() instanceof PetArmorItem &! (source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE)) )
 			{
-				armorStack.damage(Math.round(amount/4), this, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
+				armorStack.damage(Math.round(amount/2), this, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
 
 			}
 		}
