@@ -27,6 +27,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.qwertyle.pet_armor.PetArmor;
+import net.qwertyle.pet_armor.config.ModConfigs;
 import net.qwertyle.pet_armor.item.ModItems;
 import net.qwertyle.pet_armor.item.PetArmorItem;
 import org.jetbrains.annotations.Nullable;
@@ -155,7 +156,7 @@ public abstract class WolfEntityMixin extends TameableEntity implements Angerabl
 			amount = amount * (1F-(defense/100F));
 
 			//Durability damage
-			if (armorStack.getItem() instanceof PetArmorItem &! (source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE)) )
+			if (ModConfigs.ARMOR_LOOSE_DURABILITY && (armorStack.getItem() instanceof PetArmorItem &! (source.isOf(DamageTypes.IN_FIRE) || source.isOf(DamageTypes.ON_FIRE))))
 			{
 				armorStack.damage(Math.round(amount/2), this, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
 

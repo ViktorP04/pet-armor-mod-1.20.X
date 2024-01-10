@@ -7,6 +7,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.qwertyle.pet_armor.config.ModConfigs;
 import net.qwertyle.pet_armor.item.ModItems;
 import net.qwertyle.pet_armor.item.PetArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,7 +37,7 @@ public class EnchantmentHelperMixin
     {
         /* Check for the specific item and enchantment we want to make compatible
          * to avoid changing vanilla behaviour. */
-        if (stack.getItem() instanceof PetArmorItem &&( enchantment == Enchantments.PROTECTION || enchantment == Enchantments.THORNS || enchantment == Enchantments.MENDING || enchantment == Enchantments.SOUL_SPEED))
+        if (ModConfigs.ENCHANTABLE_ARMOR && stack.getItem() instanceof PetArmorItem &&( enchantment == Enchantments.PROTECTION || enchantment == Enchantments.THORNS || enchantment == Enchantments.MENDING || enchantment == Enchantments.SOUL_SPEED))
             return true;
         return acceptable;
     }
