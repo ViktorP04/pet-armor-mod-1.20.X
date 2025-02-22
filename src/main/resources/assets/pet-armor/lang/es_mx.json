@@ -1,0 +1,12 @@
+{
+  "item.pet-armor.leather_wolf_armor": "Armadura de Cuero para Lobo",
+  "item.pet-armor.iron_wolf_armor": "Armadura de Hierro para Lobo",
+  "item.pet-armor.chainmail_wolf_armor": "Armadura de Malla para Lobo",
+  "item.pet-armor.golden_wolf_armor": "Armadura de Oro para Lobo",
+  "item.pet-armor.diamond_wolf_armor": "Armadura de Diamante para Lobo",
+  "item.pet-armor.netherite_wolf_armor": "Armadura de Netherita para Lobo",
+
+  "itemgroup.pet-armor": "Per Armor",
+
+  "tooltip.pet-armor.petarmortooltip": "Shift clic derecho en un lobo para equipar"
+}
