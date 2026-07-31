@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:gold_ingot",
+  "base": "pet-armor:iron_wolf_armor",
+  "result": {
+    "id": "pet-armor:golden_wolf_armor"
+  }
+}

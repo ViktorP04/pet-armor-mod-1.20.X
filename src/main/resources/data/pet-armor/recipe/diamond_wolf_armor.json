@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:diamond",
+  "base": "minecraft:wolf_armor",
+  "result": {
+    "id": "pet-armor:diamond_wolf_armor"
+  }
+}

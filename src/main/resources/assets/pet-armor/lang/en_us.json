@@ -1,16 +1,9 @@
 {
-  "item.pet-armor.leather_wolf_armor": "Leather Wolf Armor",
-  "item.pet-armor.iron_wolf_armor": "Iron Wolf Armor",
-  "item.pet-armor.chainmail_wolf_armor": "Chainmail Wolf Armor",
-  "item.pet-armor.golden_wolf_armor": "Golden Wolf Armor",
-  "item.pet-armor.diamond_wolf_armor": "Diamond Wolf Armor",
-  "item.pet-armor.netherite_wolf_armor": "Netherite Wolf Armor",
-
-
-
-  "itemgroup.pet-armor": "Pet Armor",
-
-
-  "tooltip.pet-armor.petarmortooltip": "Shift right click on a wolf to equip"
-
+  "item.pet-armor.leather_wolf_armor": "Leather Pet Armor",
+  "item.pet-armor.copper_wolf_armor": "Copper Pet Armor",
+  "item.pet-armor.iron_wolf_armor": "Iron Pet Armor",
+  "item.pet-armor.chainmail_wolf_armor": "Chainmail Pet Armor",
+  "item.pet-armor.golden_wolf_armor": "Golden Pet Armor",
+  "item.pet-armor.diamond_wolf_armor": "Diamond Pet Armor",
+  "item.pet-armor.netherite_wolf_armor": "Netherite Pet Armor"
 }

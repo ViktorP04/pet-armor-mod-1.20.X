@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:iron_chain",
+  "base": "pet-armor:copper_wolf_armor",
+  "result": {
+    "id": "pet-armor:chainmail_wolf_armor"
+  }
+}

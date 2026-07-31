@@ -1,0 +1,12 @@
+{
+  "layers": {
+    "wolf_body": [
+      {
+        "dyeable": {
+          "color_when_undyed": -1
+        },
+        "texture": "pet-armor:leather_wolf_armor"
+      }
+    ]
+  }
+}

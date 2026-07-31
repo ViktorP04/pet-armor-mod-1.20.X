@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:copper_ingot",
+  "base": "pet-armor:leather_wolf_armor",
+  "result": {
+    "id": "pet-armor:copper_wolf_armor"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "minecraft:netherite_ingot",
+  "base": "pet-armor:diamond_wolf_armor",
+  "result": {
+    "id": "pet-armor:netherite_wolf_armor"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "component": "minecraft:dyed_color",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "pet-armor:item/leather_wolf_armor"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "pet-armor:item/leather_wolf_armor",
+      "tints": [
+        {
+          "type": "minecraft:dye",
+          "default": -1
+        }
+      ]
+    },
+    "property": "minecraft:has_component"
+  }
+}

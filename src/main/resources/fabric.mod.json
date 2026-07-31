@@ -3,38 +3,35 @@
 	"id": "pet-armor",
 	"version": "${version}",
 	"name": "Pet Armor",
-	"description": "Armor for your wolves",
+	"description": "Armor for your pets",
 	"authors": [
-		"Qwertyle"
+		"ViktorP04"
 	],
 	"contact": {
-		"homepage": "https://github.com/ViktorP04/pet-armor-mod-1.20.X",
-		"sources": "https://github.com/ViktorP04/pet-armor-mod-1.20.X"
+		"homepage": "https://github.com/ViktorP04/pet-armor-mod",
+		"sources": "https://github.com/ViktorP04/pet-armor-mod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/pet-armor/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.qwertyle.pet_armor.PetArmor"
+			"net.viktorp04.pet_armor.PetArmor"
 		],
 		"client": [
-			"net.qwertyle.pet_armor.PetArmorClient"
+			"net.viktorp04.pet_armor.client.PetArmorClient"
 		],
 		"fabric-datagen": [
-			"net.qwertyle.pet_armor.PetArmorDataGenerator"
+			"net.viktorp04.pet_armor.client.PetArmorDataGenerator"
 		]
 	},
 	"mixins": [
 		"pet-armor.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.21",
-		"minecraft": "~1.20",
-		"java": ">=17",
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }

@@ -1,14 +1,21 @@
 {
-	"required": true,
-	"package": "net.qwertyle.pet_armor.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"WolfEntityMixin",
-		"WolfEntityRendererMixin",
-		"EnchantmentMixin",
-		"EnchantmentHelperMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	}
+  "required": true,
+  "package": "net.viktorp04.pet_armor.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "CatMixin",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "MobMixin",
+    "ParrotMixin",
+    "SmithingTransformRecipeMixin",
+    "WolfMixin"
+  ],
+  "client": [
+    "client.CatRendererMixin",
+    "client.ParrotRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }
